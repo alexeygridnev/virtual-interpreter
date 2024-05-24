@@ -9,13 +9,15 @@ import argostranslate.package
 import argostranslate.translate
 import time
 import os
+import getpass
 
 import torch
 from TTS.api import TTS
 
 from pydub import AudioSegment
 
-path = "/home/ubuntu/"
+#adjust if appropriate:
+path = "/home/" + getpass.getuser() + "/"
 
 #load whisper for speech recognition and Coqui for voice conversion:
 def load_models():
@@ -59,7 +61,7 @@ def translation(whisper_model, tts_sg, audio_path = "/home/ubuntu/audio_test.mp3
     translated_text = argostranslate.translate.translate(result, from_code, to_code)
 
     # Speech generation:
-    tts_sg.tts_to_file(text = translated_text, speaker_wav = audio_path + ".wav", language = "en", file_path = path + "generated.wav")
+    tts_sg.tts_to_file(text = translated_text, speaker_wav = audio_path + ".wav", language = to_code, file_path = path + "generated.wav")
 
     # Remove temp file and source file:
     os.remove(audio_path + ".wav")

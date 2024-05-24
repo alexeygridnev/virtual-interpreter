@@ -34,5 +34,4 @@ conda activate whisper
 python interpreter.py
 ```
 
-## License
-The code is released under MIT license. The models used are licensed under their respective licenses.
+##
