@@ -1,5 +1,5 @@
 # virtual-interpreter
-AI solution to translate your voice messages into other languages - in your own voice!
+AI solution to translate your voice messages into other languages - in your own voice! Only locally-runnable models, no calls to external APIs. After the models are downloaded, can be run completely offline.
 
 ## Requirements:
 This script is tested with the following configuration:
