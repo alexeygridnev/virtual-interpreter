@@ -27,15 +27,20 @@ def load_models():
 
     #whisper initialize
 
-    device_whisper = "cuda:0" if cuda_devices >= 1 else "cpu"   
+    if cuda_devices > 1:
+        device_whisper = "cuda:1" 
+    elif cuda_devices == 1:
+        device_whisper = "cuda"
+    else:
+        device_whisper = "cpu" 
 
     whisper_model = whisper.load_model("large-v3", device=device_whisper)
 
     #TTS voice conversion initialize:
-    if cuda_devices >= 1:
-        device_tts = "cuda:1" 
+    if cuda_devices > 1:
+        device_tts = "cuda:0" 
     elif cuda_devices == 1:
-        device_tts = "cuda:0"
+        device_tts = "cuda"
     else:
         device_tts = "cpu"
         
