@@ -22,7 +22,7 @@ sudo apt install curl git ffmpeg
 curl -sL "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh" > "Miniconda3.sh"
 bash ./Miniconda.sh
 ```
-Log out and log back in. Then run the following:
+Log out and log back in. Then clone the repository via git run the following:
 ```
 conda env create  --yes --file requirements.yml
 ```
