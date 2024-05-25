@@ -18,7 +18,7 @@ This script is tested with the following configuration:
 First, you need to install Anaconda (miniconda, to reduce the download size ):
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl git    
+sudo apt install curl git ffmpeg  
 curl -sL "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh" > "Miniconda3.sh"
 bash ./Miniconda.sh
 ```
