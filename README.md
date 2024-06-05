@@ -1,5 +1,7 @@
 # virtual-interpreter
-AI solution to translate your voice messages into other languages - in your own voice! Only locally-runnable models, no calls to external APIs. After the models are downloaded, can be run completely offline.
+AI solution to translate your voice messages into other languages - in your own voice! Try a web demo here - https://4cbf42e3a8633781ae.gradio.live 
+
+Only locally-runnable models, no calls to external APIs. After the models are downloaded, can be run completely offline.
 
 This solution runs in a web-based interface created with the help of gradio package.
 
