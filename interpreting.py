@@ -106,6 +106,6 @@ demo = gr.Interface(fn=translation,
              outputs = "audio"  
             )
 
-demo.launch()
+demo.launch(server_name = "0.0.0.0")
 
 

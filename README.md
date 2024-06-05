@@ -44,7 +44,7 @@ After that, within whisper environment, run:
 python interpreting.py
 ```
 
-Then open the browser at 127.0.0.1:7860 and it's ready to run locally.
+Then open the browser at 127.0.0.1:7860 and it's ready to run locally. It can be also ran from within the local network, you just need to access the server by its local IP address (e.g. 192.168.0.100:7860).
 
 ## License
 The code is released under MIT license. The models used are licensed under their respective licenses.
