@@ -7,14 +7,12 @@ This is a temporary script file.
 import whisper
 import argostranslate.package
 import argostranslate.translate
-import time
-import os
 import getpass
 
 import torch
 from TTS.api import TTS
 
-from pydub import AudioSegment
+import gradio as gr
 
 #adjust if appropriate:
 path = "/home/" + getpass.getuser() + "/"
@@ -50,26 +48,32 @@ def load_models():
     
     return whisper_model, tts_sg
 
-def translation(whisper_model, tts_sg, audio_path = "/home/ubuntu/audio_test.mp3", from_code = "ru", to_code = "en"):
-    #do not download all models for argostranslate at once
-    #download and install only the ones that are required, if not yet installed
-    #download and install Argos Translate package if not installed:
-    argostranslate.package.update_package_index()
-    available_packages = argostranslate.package.get_available_packages()
-    package_to_install = next(filter(lambda x: x.from_code == from_code and x.to_code == to_code, available_packages))
-    argostranslate.package.install_from_path(package_to_install.download())
-
-    #convert mp3 to wav:
-    AudioSegment.from_mp3(audio_path).export(audio_path + ".wav")
+def translation(audio_path, from_, to_):
+    global whisper_model   
+    global tts_sg
+    global path
+    
+    language_codes = {"Russian": "ru",
+                       "English": "en",
+                       "French": "fr",
+                       "German": "de",
+                       "Spanish": "es",
+                       "Italian": "it",
+                       "Chinese": "zh", 
+                       "Polish": "pl"}
+    
+    from_code = language_codes[from_]
+    to_code = language_codes[to_]
+    
     # Translate
-    result = whisper_model.transcribe(audio_path + ".wav")["text"]
+    result = whisper_model.transcribe(audio_path)["text"]
     translated_text = argostranslate.translate.translate(result, from_code, to_code)
 
     # Speech generation:
-    tts_sg.tts_to_file(text = translated_text, speaker_wav = audio_path + ".wav", language = to_code, file_path = path + "generated.wav")
+    tts_sg.tts_to_file(text = translated_text, speaker_wav = audio_path, language = to_code, file_path = path + "generated.wav")
 
     # Remove temp file and source file:
-    os.remove(audio_path + ".wav")
+    # os.remove(audio_path + ".wav")
     # os.remove(audio_path)
 
     return path + "generated.wav"
@@ -78,20 +82,30 @@ def translation(whisper_model, tts_sg, audio_path = "/home/ubuntu/audio_test.mp3
 
 whisper_model, tts_sg = load_models()
 
-while True:
-    audio_path = input('''Input full path for the file name in mp3 format. Press Enter if you want default (/home/ubuntu/audio_test.mp3)''')
-    if audio_path == "":
-        audio_path = "/home/ubuntu/audio_test.mp3"
-    
-    from_code = input('''Input the source language, in ISO 639 format (https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes). Press Enter if you want default (Russian)''')
-    if from_code == "":
-        from_code = "ru"
-    
-    to_code = input('''Input the source language, in ISO 639 format (https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes). Press Enter if you want default (English)''')
-    if to_code == "":
-        to_code = "en"
-    
-    output = translation(whisper_model, tts_sg, audio_path, from_code, to_code)
+demo = gr.Interface(fn=translation,
+             inputs = [gr.Audio(sources =["microphone"], type = "filepath"),
+                        gr.Dropdown(["Russian", 
+                                     "English", 
+                                     "French", 
+                                     "German", 
+                                     "Spanish", 
+                                     "Italian", 
+                                     "Chinese",
+                                     "Polish"],
+                         label = "Input language", info = "Select input language"),
 
-    print("Done. Find the output audio file at " + output + "\n\n")
+                         gr.Dropdown(["Russian", 
+                                     "English", 
+                                     "French", 
+                                     "German", 
+                                     "Spanish", 
+                                     "Italian", 
+                                     "Chinese",
+                                     "Polish"],
+                         label = "Output language", info = "Select output language")],
+             outputs = "audio"  
+            )
+
+demo.launch()
+
 
