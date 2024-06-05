@@ -16,8 +16,7 @@ languages = ["Russian",
              "German", 
              "Spansih", 
              "Italian", 
-             "Chinese", 
-             "Polish"]
+             "Chinese"]
 
 required_packages = []
 

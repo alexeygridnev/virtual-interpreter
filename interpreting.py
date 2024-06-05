@@ -59,8 +59,7 @@ def translation(audio_path, from_, to_):
                        "German": "de",
                        "Spanish": "es",
                        "Italian": "it",
-                       "Chinese": "zh", 
-                       "Polish": "pl"}
+                       "Chinese": "zh"}
     
     from_code = language_codes[from_]
     to_code = language_codes[to_]
@@ -90,8 +89,7 @@ demo = gr.Interface(fn=translation,
                                      "German", 
                                      "Spanish", 
                                      "Italian", 
-                                     "Chinese",
-                                     "Polish"],
+                                     "Chinese"],
                          label = "Input language", info = "Select input language"),
 
                          gr.Dropdown(["Russian", 
@@ -100,12 +98,14 @@ demo = gr.Interface(fn=translation,
                                      "German", 
                                      "Spanish", 
                                      "Italian", 
-                                     "Chinese",
-                                     "Polish"],
+                                     "Chinese"],
                          label = "Output language", info = "Select output language")],
              outputs = "audio"  
             )
 
-demo.launch(server_name = "0.0.0.0")
-
-
+demo.launch(server_name = "0.0.0.0",
+            ssl_certfile="/home/aleksei/cert.pem",
+            ssl_keyfile="/home/aleksei/key.pem",
+            ssl_verify=False)
+#for sharing via gradio:
+#demo.launch(share = True)
