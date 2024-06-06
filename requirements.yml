@@ -388,4 +388,3 @@ dependencies:
       - werkzeug==3.0.3
       - xxhash==3.4.1
       - yarl==1.9.4
-prefix: /home/aleksei/miniconda3/envs/whisper
