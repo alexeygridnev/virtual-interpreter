@@ -1,5 +1,5 @@
 # virtual-interpreter
-AI solution to translate your voice messages into other languages - in your own voice! Try a web demo here - https://4cbf42e3a8633781ae.gradio.live 
+AI solution to translate your voice messages into other languages - in your own voice! Try a web demo here - https://ffts.short.gy/ai-interpreter 
 
 Only locally-runnable models, no calls to external APIs. After the models are downloaded, can be run completely offline.
 
