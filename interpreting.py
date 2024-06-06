@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Spyder Editor
 
-This is a temporary script file.
-"""
 import whisper
 import argostranslate.package
 import argostranslate.translate
@@ -102,10 +98,11 @@ demo = gr.Interface(fn=translation,
                          label = "Output language", info = "Select output language")],
              outputs = "audio"  
             )
-
-demo.launch(server_name = "0.0.0.0",
-            ssl_certfile="/home/aleksei/cert.pem",
-            ssl_keyfile="/home/aleksei/key.pem",
+#mobile browsers do not allow microphone access to websites without SSL (even within the local network)
+#so, if you want to use the tool from your phone, generate an SSL certificate and put the certificate files to your path
+demo.launch(server_name = "0.0.0.0"
+            ssl_certfile=path + "cert.pem",
+            ssl_keyfile=path+"key.pem",
             ssl_verify=False)
 #for sharing via gradio:
 #demo.launch(share = True)
