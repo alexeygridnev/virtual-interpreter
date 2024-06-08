@@ -11,7 +11,7 @@ This script is tested with the following configuration:
  - Kernel: 5.15
  - NVIDIA driver version: 535
  - CUDA version: 12.2
- - GPUs: 2 x RTX 3080 / RTX 3060
+ - GPUs: 2 x RTX 3080 / 1 x RTX 3060
 
 ## Used models:
  - multilingual speech recognition: [whisper](https://github.com/openai/whisper). From OpenAI but open source and runnable locally
