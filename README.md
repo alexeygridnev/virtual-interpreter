@@ -11,7 +11,9 @@ This script is tested with the following configuration:
  - Kernel: 5.15
  - NVIDIA driver version: 535
  - CUDA version: 12.2
- - GPUs: 2 x RTX 3080 / RTX 3060
+ - GPUs: 2 x RTX 3080 / 1 x RTX 3060
+
+The code supports using just a CPU but in this case the audio generation will be slow.
 
 ## Used models:
  - multilingual speech recognition: [whisper](https://github.com/openai/whisper). From OpenAI but open source and runnable locally
@@ -27,7 +29,12 @@ curl -sL "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
 chmod +x Miniconda3.sh
 bash ./Miniconda3.sh
 ```
-Log out and log back in. Then clone the repository via git run the following:
+Log out and log back in. Then clone the repository via git:
+```
+git clone https://github.com/alexeygridnev/virtual-interpreter
+cd virtual-interpreter
+```
+and run the following:
 ```
 conda env create  --yes --file requirements.yml
 ```
