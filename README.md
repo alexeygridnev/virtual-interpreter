@@ -18,8 +18,8 @@ The code supports using just a CPU but in this case the audio generation will be
 ## Used models:
  - multilingual speech recognition: [whisper](https://github.com/openai/whisper). From OpenAI but open source and runnable locally
  - translation: [argostranslate](https://github.com/argosopentech/argos-translate)
- - text-to-speech conversion and voice cloning: [coqui-TTS](https://github.com/coqui-ai/TTS). Keep in mind that the license only allows to use this model for free for non-commercial use, otherwise, a commercial license is required.
-
+ - text-to-speech conversion and voice cloning: [coqui-TTS](https://github.com/coqui-ai/TTS). ~~Keep in mind that the license only allows to use this model for free for non-commercial use, otherwise, a commercial license is required.~~
+ Coqui-AI does not exist anymore, so unclear whether you still can buy a commercial license from someone. Use at your own risk.
 ## Installation:
 First, you need to install Anaconda (miniconda, to reduce the download size ):
 ```
