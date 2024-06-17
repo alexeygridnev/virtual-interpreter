@@ -86,7 +86,7 @@ demo = gr.Interface(fn=translation,
                                      "Spanish", 
                                      "Italian", 
                                      "Chinese"],
-                         label = "Input language", info = "Select input language"),
+                         label = "Input language", info = "Select input language", value = "Russian"),
 
                          gr.Dropdown(["Russian", 
                                      "English", 
@@ -95,7 +95,7 @@ demo = gr.Interface(fn=translation,
                                      "Spanish", 
                                      "Italian", 
                                      "Chinese"],
-                         label = "Output language", info = "Select output language")],
+                         label = "Output language", info = "Select output language"), value = "English"],
              outputs = "audio"  
             )
 #for fuly local launch
