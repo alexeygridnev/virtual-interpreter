@@ -95,7 +95,8 @@ demo = gr.Interface(fn=translation,
                                      "Spanish", 
                                      "Italian", 
                                      "Chinese"],
-                         label = "Output language", info = "Select output language"), value = "English"],
+                         label = "Output language", info = "Select output language", value = "English")
+                         ],
              outputs = "audio"  
             )
 #for fuly local launch
