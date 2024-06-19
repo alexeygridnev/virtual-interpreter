@@ -24,7 +24,7 @@ The code supports using just a CPU but in this case the audio generation will be
 First, you need to install Anaconda (miniconda, to reduce the download size ):
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl git ffmpeg  
+sudo apt install curl git ffmpeg nvidia-cuda-toolkit
 curl -sL "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh" > "Miniconda3.sh"
 chmod +x Miniconda3.sh
 bash ./Miniconda3.sh
@@ -54,6 +54,8 @@ python interpreting.py
 ```
 
 Then open the browser at 127.0.0.1:7860 and it's ready to run locally. It can be also ran from within the local network, you just need to access the server by its local IP address (e.g. 192.168.0.100:7860).
+
+You can also share the app via gradio reverse proxy. In the last line of interpreter.py, add "share = True" and check the temporary web link in the terminal output.
 
 ## License
 The code is released under MIT license. The models used are licensed under their respective licenses.
