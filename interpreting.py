@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import whisper
 import argostranslate.package
 import argostranslate.translate
 import getpass
+
+from transformers import pipeline
 
 import torch
 from TTS.api import TTS
@@ -16,23 +17,22 @@ path = "/home/" + getpass.getuser() + "/"
 #load whisper for speech recognition and Coqui for voice conversion:
 def load_models():
 
-    #chech CUDA availability and number of cuda devices:
+    #check CUDA availability and number of cuda devices:
     cuda_devices = torch.cuda.device_count()
 
-    #whisper initialize
-
+    #whisper initialize, via transformer pipelines
     if cuda_devices > 1:
         device_whisper = "cuda:1" 
     elif cuda_devices == 1:
         device_whisper = "cuda"
     else:
-        device_whisper = "cpu" 
+        device_whisper = "cpu"
 
-    whisper_model = whisper.load_model("large-v3", device=device_whisper)
+    whisper_model_int = pipeline("automatic-speech-recognition", model = "openai/whisper-large-v3", device=device_whisper)
 
     #TTS voice conversion initialize:
     if cuda_devices > 1:
-        device_tts = "cuda:0" 
+        device_tts = "cuda:1" 
     elif cuda_devices == 1:
         device_tts = "cuda"
     else:
@@ -42,10 +42,10 @@ def load_models():
     #TTS speech generation initialize:
     tts_sg = TTS(model_name="tts_models/multilingual/multi-dataset/xtts_v2").to(device_tts)
     
-    return whisper_model, tts_sg
+    return whisper_model_int, tts_sg
 
 def translation(audio_path, from_, to_):
-    global whisper_model   
+    global whisper_model_int   
     global tts_sg
     global path
     
@@ -59,9 +59,8 @@ def translation(audio_path, from_, to_):
     
     from_code = language_codes[from_]
     to_code = language_codes[to_]
-    
-    # Translate
-    result = whisper_model.transcribe(audio_path)["text"]
+
+    result = whisper_model_int(audio_path)["text"]
     translated_text = argostranslate.translate.translate(result, from_code, to_code)
 
     # Speech generation:
@@ -74,8 +73,7 @@ def translation(audio_path, from_, to_):
     return path + "generated.wav"
 
 
-
-whisper_model, tts_sg = load_models()
+whisper_model_int, tts_sg = load_models()
 
 demo = gr.Interface(fn=translation,
              inputs = [gr.Audio(sources =["microphone"], type = "filepath"),
@@ -95,16 +93,14 @@ demo = gr.Interface(fn=translation,
                                      "Spanish", 
                                      "Italian", 
                                      "Chinese"],
-                         label = "Output language", info = "Select output language", value = "English")
-                         ],
+                         label = "Output language", info = "Select output language", value = "English")],
              outputs = "audio"  
-            )
-#for fuly local launch
+             )
 #mobile browsers do not allow microphone access to websites without SSL (even within the local network)
 #so, if you want to use the tool from your phone, generate an SSL certificate and put the certificate files to your path
-#demo.launch(server_name = "0.0.0.0",
+#demo.launch(server_name = "0.0.0.0"
 #            ssl_certfile=path + "cert.pem",
 #            ssl_keyfile=path+"key.pem",
 #            ssl_verify=False)
-#for sharing via gradio:
+#for sharing via gradio reverse proxy:
 demo.launch(share = True)
