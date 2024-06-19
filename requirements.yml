@@ -243,6 +243,7 @@ dependencies:
       - fastapi
       - fastapi-cli
       - ffmpy==0.3.2
+      - ffprobe==0.5
       - filelock==3.14.0
       - flask==3.0.3
       - flatbuffers==24.3.25
@@ -309,7 +310,6 @@ dependencies:
       - nvidia-nvtx-cu12==12.1.105
       - onnx==1.16.0
       - onnxruntime-gpu==1.17.1
-      - openai-whisper==20231117
       - optimum==1.19.2
       - orjson==3.10.3
       - packaging==24.0
