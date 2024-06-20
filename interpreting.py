@@ -58,7 +58,7 @@ def translation(audio_path, from_, to_):
                        "Chinese": "zh"}
     
     from_code = language_codes[from_]
-    to_code = language_codes[to_]
+    to_code = language_codes[to_]        
 
     result = whisper_model_int(audio_path)["text"]
     translated_text = argostranslate.translate.translate(result, from_code, to_code)
@@ -76,7 +76,7 @@ def translation(audio_path, from_, to_):
 whisper_model_int, tts_sg = load_models()
 
 demo = gr.Interface(fn=translation,
-             inputs = [gr.Audio(sources =["microphone"], type = "filepath"),
+             inputs = [gr.Audio(sources =["microphone"], type = "filepath", max_length = 45),
                         gr.Dropdown(["Russian", 
                                      "English", 
                                      "French", 
@@ -96,6 +96,7 @@ demo = gr.Interface(fn=translation,
                          label = "Output language", info = "Select output language", value = "English")],
              outputs = "audio"  
              )
+demo.queue()
 #mobile browsers do not allow microphone access to websites without SSL (even within the local network)
 #so, if you want to use the tool from your phone, generate an SSL certificate and put the certificate files to your path
 #demo.launch(server_name = "0.0.0.0"
@@ -103,4 +104,5 @@ demo = gr.Interface(fn=translation,
 #            ssl_keyfile=path+"key.pem",
 #            ssl_verify=False)
 #for sharing via gradio reverse proxy:
+
 demo.launch(share = True)
