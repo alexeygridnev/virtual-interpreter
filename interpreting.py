@@ -11,9 +11,6 @@ from TTS.api import TTS
 
 import gradio as gr
 
-#adjust if appropriate:
-path = "/home/" + getpass.getuser() + "/"
-
 #load whisper for speech recognition and Coqui for voice conversion:
 def load_models():
 
@@ -47,7 +44,8 @@ def load_models():
 def translation(audio_path, from_, to_):
     global whisper_model_int   
     global tts_sg
-    global path
+    
+    global audio_input
     
     language_codes = {"Russian": "ru",
                        "English": "en",
@@ -58,19 +56,15 @@ def translation(audio_path, from_, to_):
                        "Chinese": "zh"}
     
     from_code = language_codes[from_]
-    to_code = language_codes[to_]        
+    to_code = language_codes[to_]
 
     result = whisper_model_int(audio_path)["text"]
     translated_text = argostranslate.translate.translate(result, from_code, to_code)
 
     # Speech generation:
-    tts_sg.tts_to_file(text = translated_text, speaker_wav = audio_path, language = to_code, file_path = path + "generated.wav")
+    tts_sg.tts_to_file(text = translated_text, speaker_wav = audio_path, language = to_code, file_path = audio_path + ".generated.wav")
 
-    # Remove temp file and source file:
-    # os.remove(audio_path + ".wav")
-    # os.remove(audio_path)
-
-    return path + "generated.wav"
+    return audio_path + ".generated.wav"
 
 
 whisper_model_int, tts_sg = load_models()
