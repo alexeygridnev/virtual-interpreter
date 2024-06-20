@@ -43,10 +43,9 @@ def load_models():
 
 def translation(audio_path, from_, to_):
     global whisper_model_int   
-    global tts_sg
-    
+    global tts_sg    
     global audio_input
-    
+
     language_codes = {"Russian": "ru",
                        "English": "en",
                        "French": "fr",
