@@ -57,5 +57,8 @@ Then open the browser at 127.0.0.1:7860 and it's ready to run locally. It can be
 
 You can also share the app via gradio reverse proxy. In the last line of interpreter.py, add "share = True" and check the temporary web link in the terminal output.
 
+## Known issues
+For now, you'll need to wait until the audio gets preprocessed (which you can visually see as the image of the audiowave disappears and reappears again) before you can press "Submit". I added a textual note to explain this as I cannot find a solution or even a workaround to this issue as of now.
+
 ## License
 The code is released under MIT license. The models used are licensed under their respective licenses.
