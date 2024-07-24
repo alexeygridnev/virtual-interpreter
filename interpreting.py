@@ -44,7 +44,6 @@ def load_models():
 def translation(audio_path, from_, to_):
     global whisper_model_int   
     global tts_sg    
-    global audio_input
 
     language_codes = {"Russian": "ru",
                        "English": "en",
@@ -87,7 +86,17 @@ demo = gr.Interface(fn=translation,
                                      "Italian", 
                                      "Chinese"],
                          label = "Output language", info = "Select output language", value = "English")],
-             outputs = "audio"  
+             outputs = "audio",
+             title = "AI Interpreter",
+             description = '''Record a voice message, select an input and an output language, wait for some 
+             		time, and get your voice translated into a different language with your own voice! \n
+             		NB! Do not forget to stop the recording before pressing "Submit"! \n
+             		After stopping the recording, wait until the audio wave image disappears 
+             		and reappears again before pressing "Submit". \n
+             		If you still see error, just press "Submit" again after a few seconds. \n
+             		(This is still an early prototype, couldn't find a way to solve it so far)      
+
+                           '''  
              )
 demo.queue()
 #mobile browsers do not allow microphone access to websites without SSL (even within the local network)
